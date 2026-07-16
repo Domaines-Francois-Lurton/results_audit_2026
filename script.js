@@ -332,28 +332,28 @@ function renderCommerciaux(){
 
 const THEMES = [
   {
-    title:"Le trou en entrée de gamme (~3 €)",
-    body:"Plusieurs gammes premium (Campo Eliseo, Piedra Negra, Araucano) sont jugées qualitatives mais chères pour certains marchés. Les commerciaux réclament une référence d'appel très agressive en prix pour ouvrir la porte avant de monter en gamme.",
+    title:"Référence entrée de gamme (~3 €)",
+    body:"Plusieurs gammes premium (Campo Eliseo, Piedra Negra, Araucano) sont jugées qualitatives mais chères pour certains marchés. Les commerciaux réclament une référence d'appel agressive en prix pour ouvrir la porte avant de monter en gamme.",
     tags:["Prix","Bodegas Campo Eliseo","Bodega Piedra Negra","Hacienda Araucano"]
   },
   {
     title:"Storytelling insuffisamment exploité",
-    body:"Le manque d'histoire ou d'argumentaire structuré revient sur plusieurs gammes (Nizas, Escapades Vagabondes). Les commerciaux ont les vins mais pas toujours le récit pour les vendre en rayon ou en dégustation.",
+    body:"Le manque d'histoire ou d'argumentaire structuré revient sur plusieurs gammes (Nizas, Escapades Vagabondes, Salices).",
     tags:["Storytelling","Domaine de Nizas","Escapades Vagabondes"]
   },
   {
     title:"Noms difficiles à prononcer à l'export",
-    body:"Plusieurs références portent des noms régionaux (occitan, catalan) jugés séduisants mais peu praticables sur les marchés export : « Traou de l'Ouille », « Autèntic », noms d'Escapades Vagabondes. Cela freine l'argumentaire oral face au client.",
+    body:"Plusieurs références portent des noms jugés séduisants mais peu praticables sur les marchés export : « Traou de l'Ouille », « Autèntic », "Escapades Vagabondes" = frein à la vente.",
     tags:["Naming","Mas Janeil","Escapades Vagabondes"]
   },
   {
-    title:"Cohérence de gamme à clarifier",
+    title:"Cohérence de gamme",
     body:"Sur Campo Eliseo notamment, plusieurs références sont perçues comme redondantes (mêmes vins sous étiquettes différentes), ce qui brouille le discours commercial. Le besoin exprimé : simplifier et hiérarchiser plutôt que multiplier les références.",
     tags:["Portefeuille","Bodegas Campo Eliseo"]
   },
   {
-    title:"Vins blancs du Sud, marché étroit",
-    body:"Un constat récurrent : les vins blancs du Languedoc-Roussillon restent difficiles à placer sur certains marchés export, quelle que soit leur qualité perçue, freinant le potentiel de gammes comme Nizas ou Mas Janeil.",
+    title:"Vins blancs du Sud, segment compliqué",
+    body:"Un constat récurrent : les vins blancs du Languedoc-Roussillon restent difficiles à placer sur certains marchés export, quelle que soit leur qualité = difficultés à pousser Nizas ou Mas Janeil.",
     tags:["Marché export","Domaine de Nizas","Mas Janeil"]
   },
   {
@@ -368,7 +368,7 @@ const THEMES = [
   },
   {
     title:"Besoin d'outils d'aide à la vente",
-    body:"Demande explicite pour un support synthétique par gamme (key selling points, benchmark concurrence) pour outiller le discours commercial sur le terrain, en particulier pour les gammes moins connues.",
+    body:"Demande explicite pour un support synthétique par gamme (key selling points, présentation, benchmark) pour appuyer le discours commercial sur le terrain, en particulier pour les gammes moins connues.",
     tags:["Outils commerciaux","Mas Janeil"]
   }
 ];
