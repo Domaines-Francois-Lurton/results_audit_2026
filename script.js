@@ -352,7 +352,7 @@ const THEMES = [
   {
     title:"Manque de notoriété des appellations/régions",
     count:8,
-    body:"Roussillon, Languedoc, vins espagnols, chiliens ou argentins peu connus des marchés export → frein direct à la vente, cité comme "réel frein" sur plusieurs références (Arrels, Traou de l'Ouille, Gran Lurton Corte).",
+    body:"Roussillon, Languedoc, vins espagnols, chiliens ou argentins peu connus des marchés export → frein direct à la vente, cité comme « réel frein » sur plusieurs références (Arrels, Traou de l'Ouille, Gran Lurton Corte).",
     tags:["Notoriété","Mas Janeil","Domaine de Nizas","Hacienda Araucano"]
   },
   {
