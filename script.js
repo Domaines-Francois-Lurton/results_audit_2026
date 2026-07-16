@@ -332,33 +332,33 @@ function renderCommerciaux(){
 
 const THEMES = [
   {
-    title:"Prix trop élevé / écarts de prix mal justifiés",
+    title:"Prix trop élevés / écarts de prix non justifiés",
     count:37,
-    body:"Le sujet dominant, cité dans près de la moitié des commentaires (Mazet de Nizas, Campo Eliseo, Torrontés, écarts Pas de la Mule/Arrels, Contracomente/Cuvée Alegre…).",
+    body:"Le sujet dominant, cité dans près de la moitié des commentaires (Mazet de Nizas, Campo Eliseo, Torrontés, Pas de la Mule/Arrels, Contracomente/Cuvée Alegre…).",
     tags:["Prix","Domaine de Nizas","Bodegas Campo Eliseo","Mas Janeil"]
   },
   {
     title:"Packaging / étiquette à retravailler",
     count:17,
     body:"Étiquettes jugées trop clivantes, froides, ou à valoriser davantage (dorures, sobriété).",
-    tags:["Packaging","Domaine de Nizas","Bodegas Campo Eliseo"]
+    tags:["Packaging","Domaine de Nizas","Bodegas Campo Eliseo","Escapades"]
   },
   {
     title:"Difficulté à vendre les blancs et rosés du Sud de la France",
     count:9,
-    body:"Marché structurellement limité pour ces typologies.",
+    body:"Marchés export difficiles pour ces catégories produit.",
     tags:["Marché export","Domaine de Nizas","Mas Janeil"]
   },
   {
     title:"Manque de notoriété des appellations/régions",
     count:8,
-    body:"Roussillon, Languedoc, vins espagnols/chiliens/argentins peu connus : un frein direct à la vente.",
+    body:"Roussillon, Languedoc, vins espagnols, chiliens ou argentins peu connus des marchés export → frein direct à la vente, cité comme "réel frein" sur plusieurs références (Arrels, Traou de l'Ouille, Gran Lurton Corte).",
     tags:["Notoriété","Mas Janeil","Domaine de Nizas","Hacienda Araucano"]
   },
   {
     title:"Manque de storytelling / outils d'aide à la vente",
     count:7,
-    body:"Demande récurrente d'un support argumentaire (livret, key selling points).",
+    body:"Demande récurrente de supports d'aide à la vente (livret, key selling points, présentation, argumentaire).",
     tags:["Storytelling","Mas Janeil","Domaine de Nizas"]
   },
   {
