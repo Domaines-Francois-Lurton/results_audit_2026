@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Audit Gammes Lurton - Dashboard</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.5.0/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <div class="eyebrow"><span class="dot"></span> Audit interne des gammes - Réseau commercial</div>
+    <h1>Ce que le terrain dit <em>vraiment</em> des gammes</h1>
+    <p class="sub">Synthèse vivante des questionnaires remplis par les commerciaux : notation quantitative par référence et par gamme, et lecture qualitative des commentaires de terrain. Le jeu de données s'enrichit à mesure que de nouvelles réponses arrivent.</p>
+    <div class="kpis">
+      <div class="kpi"><div class="num" id="kpi-reponses">–</div><div class="lbl">Réponses collectées</div></div>
+      <div class="kpi"><div class="num" id="kpi-gammes">–</div><div class="lbl">Gammes évaluées</div></div>
+      <div class="kpi"><div class="num" id="kpi-refs">–</div><div class="lbl">Références évaluées</div></div>
+      <div class="kpi"><div class="num" id="kpi-commerciaux">–</div><div class="lbl">Commerciaux répondants</div></div>
+      <div class="kpi"><div class="num" id="kpi-periode" style="font-size:17px;">–</div><div class="lbl">Période couverte</div></div>
+    </div>
+  </div>
+
+  <div class="filterbar">
+    <label>Commercial</label>
+    <div class="dd" id="dd-commercial">
+      <button type="button" class="dd-btn"><span class="dd-label">Tous</span><svg class="dd-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+      <div class="dd-menu"></div>
+    </div>
+    <label>Recherche</label>
+    <input type="text" id="f-search" placeholder="mot-clé dans les commentaires…" style="width:220px;">
+    <div class="spacer"></div>
+    <button class="btn ghost" id="btn-reset">Réinitialiser les filtres</button>
+  </div>
+
+  <section id="sec-gammes">
+    <div class="section-head">
+      <h2><span class="num-tag">01</span>Classement des gammes - potentiel commercial perçu</h2>
+      <div class="section-note">Moyenne de la note « potentiel commercial » donnée par les commerciaux à chaque gamme. Cliquez une gamme pour voir son détail.</div>
+    </div>
+    <div class="panel">
+      <div class="gamme-list" id="gamme-list"></div>
+    </div>
+  </section>
+
+  <section id="sec-detail">
+    <div class="section-head">
+      <h2><span class="num-tag">02</span>Détail de gamme - <span id="detail-gamme-name" style="color:var(--gold-soft)">-</span></h2>
+      <div class="section-note">Profil de la gamme sur ses 6 dimensions, comparé à la moyenne du portefeuille, et notes de chaque référence.</div>
+    </div>
+    <div class="panel detail-grid">
+      <div>
+        <div style="display:flex; align-items:baseline; justify-content:space-between; gap:10px; flex-wrap:wrap;">
+          <div class="detail-title" id="radar-title">Profil de la gamme</div>
+          <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+            <div class="segmented" id="radar-toggle">
+              <button class="seg-btn active" data-mode="portfolio" type="button">Vs portefeuille</button>
+              <button class="seg-btn" data-mode="references" type="button">Comparer les références</button>
+            </div>
+            <button class="expand-btn" id="btn-expand-radar" type="button" title="Agrandir le graphique">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg>
+              Agrandir
+            </button>
+          </div>
+        </div>
+        <div class="detail-sub" id="radar-sub">Échelle 1-10 · zone dorée = moyenne portefeuille</div>
+        <div class="chart-wrap"><canvas id="radar-chart"></canvas></div>
+        <div class="ref-legend" id="ref-legend"></div>
+      </div>
+      <div>
+        <div class="detail-title">Références de la gamme</div>
+        <div class="detail-sub" id="detail-refs-sub">-</div>
+        <div style="max-height:280px; overflow-y:auto; overflow-x:auto;">
+        <table id="refs-table" style="min-width:420px;">
+          <thead><tr><th>Référence</th><th>Qté/Prix</th><th>Étiquette</th><th>Facilité vente</th><th>Retours</th></tr></thead>
+          <tbody></tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="sec-commerciaux">
+    <div class="section-head">
+      <h2><span class="num-tag">03</span>Regard par commercial</h2>
+      <div class="section-note">Moyenne des notes attribuées par chaque commercial, toutes gammes confondues. Utile pour repérer des écarts de calibration entre évaluateurs.</div>
+    </div>
+    <div class="panel">
+      <div class="comm-grid" id="comm-grid"></div>
+    </div>
+  </section>
+
+  <section id="sec-themes">
+    <div class="section-head">
+      <h2><span class="num-tag">04</span>Synthèse qualitative - les thèmes qui reviennent</h2>
+      <div class="section-note">Lecture transversale des commentaires libres, regroupés par sujet récurrent à travers les gammes.</div>
+    </div>
+    <div class="theme-grid" id="theme-grid"></div>
+  </section>
+
+  <section id="sec-comments">
+    <div class="section-head">
+      <h2><span class="num-tag">05</span>Explorateur de commentaires</h2>
+      <div class="section-note">Tous les commentaires libres, filtrables par gamme, commercial ou mot-clé (voir la barre de filtres en haut de page).</div>
+    </div>
+    <div class="panel">
+      <div class="filterbar" style="margin-bottom:16px;">
+        <label>Gamme</label>
+        <div class="dd" id="dd-gamme-comments">
+          <button type="button" class="dd-btn"><span class="dd-label">Toutes</span><svg class="dd-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+          <div class="dd-menu"></div>
+        </div>
+        <div class="spacer"></div>
+        <div id="comment-count" style="font-size:12px;color:var(--cream-dim);"></div>
+      </div>
+      <div class="comment-list" id="comment-list"></div>
+    </div>
+  </section>
+
+  <section id="sec-update">
+    <div class="section-head">
+      <h2><span class="num-tag">06</span>Source des données</h2>
+      <div class="section-note">Statut : <span id="source-status">initialisation…</span></div>
+    </div>
+    <div class="update-panel">
+      <div class="txt">
+        <b>Fichier data.xlsx du dépôt</b>
+        <small>Le dashboard charge automatiquement le fichier <code>data.xlsx</code> placé à côté d'<code>index.html</code> dans le dépôt. Pour mettre à jour : remplacez ce fichier, commit, push. Vous pouvez aussi charger un export ponctuel sans toucher au dépôt, ou revenir aux données de démonstration.</small>
+        <div id="update-status"></div>
+      </div>
+      <button class="btn ghost" id="btn-reload-sheet">Recharger data.xlsx</button>
+      <label class="filelabel" for="file-input">Charger un fichier .xlsx</label>
+      <input type="file" id="file-input" accept=".xlsx,.xls">
+      <button class="btn ghost" id="btn-restore">Revenir aux données de démonstration</button>
+    </div>
+  </section>
+
+  <footer>Dashboard généré à partir des réponses au questionnaire d'audit des gammes · Usage interne</footer>
+
+  <div class="radar-modal" id="radar-modal">
+    <div class="radar-modal-panel">
+      <div class="radar-modal-head">
+        <div>
+          <div class="detail-title" id="radar-title-fs">Profil de la gamme</div>
+          <div class="detail-sub" id="radar-sub-fs">Échelle 1-10</div>
+        </div>
+        <div style="display:flex; align-items:center; gap:10px;">
+          <div class="segmented" id="radar-toggle-fs">
+            <button class="seg-btn" data-mode="portfolio" type="button">Vs portefeuille</button>
+            <button class="seg-btn" data-mode="references" type="button">Comparer les références</button>
+          </div>
+          <button class="btn ghost" id="btn-close-radar" type="button">Fermer ✕</button>
+        </div>
+      </div>
+      <div class="chart-wrap-fs"><canvas id="radar-chart-fullscreen"></canvas></div>
+      <div class="ref-legend" id="ref-legend-fullscreen"></div>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
