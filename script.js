@@ -332,53 +332,75 @@ function renderCommerciaux(){
 
 const THEMES = [
   {
-    title:"Référence entrée de gamme (~3 €)",
-    body:"Plusieurs gammes premium (Campo Eliseo, Piedra Negra, Araucano) sont jugées qualitatives mais chères pour certains marchés. Les commerciaux réclament une référence d'appel agressive en prix pour ouvrir la porte avant de monter en gamme.",
-    tags:["Prix","Bodegas Campo Eliseo","Bodega Piedra Negra","Hacienda Araucano"]
+    title:"Prix trop élevé / écarts de prix mal justifiés",
+    count:37,
+    body:"Le sujet dominant, cité dans près de la moitié des commentaires (Mazet de Nizas, Campo Eliseo, Torrontés, écarts Pas de la Mule/Arrels, Contracomente/Cuvée Alegre…).",
+    tags:["Prix","Domaine de Nizas","Bodegas Campo Eliseo","Mas Janeil"]
   },
   {
-    title:"Storytelling insuffisamment exploité",
-    body:"Le manque d'histoire ou d'argumentaire structuré revient sur plusieurs gammes (Nizas, Escapades Vagabondes, Salices).",
-    tags:["Storytelling","Domaine de Nizas","Escapades Vagabondes"]
+    title:"Packaging / étiquette à retravailler",
+    count:17,
+    body:"Étiquettes jugées trop clivantes, froides, ou à valoriser davantage (dorures, sobriété).",
+    tags:["Packaging","Domaine de Nizas","Bodegas Campo Eliseo"]
   },
   {
-    title:"Noms difficiles à prononcer à l'export",
-    body:"Plusieurs références portent des noms jugés séduisants mais peu praticables sur les marchés export : « Traou de l'Ouille », « Autèntic », "Escapades Vagabondes" = frein à la vente.",
-    tags:["Naming","Mas Janeil","Escapades Vagabondes"]
-  },
-  {
-    title:"Cohérence de gamme",
-    body:"Sur Campo Eliseo notamment, plusieurs références sont perçues comme redondantes (mêmes vins sous étiquettes différentes), ce qui brouille le discours commercial. Le besoin exprimé : simplifier et hiérarchiser plutôt que multiplier les références.",
-    tags:["Portefeuille","Bodegas Campo Eliseo"]
-  },
-  {
-    title:"Vins blancs du Sud, segment compliqué",
-    body:"Un constat récurrent : les vins blancs du Languedoc-Roussillon restent difficiles à placer sur certains marchés export, quelle que soit leur qualité = difficultés à pousser Nizas ou Mas Janeil.",
+    title:"Difficulté à vendre les blancs et rosés du Sud de la France",
+    count:9,
+    body:"Marché structurellement limité pour ces typologies.",
     tags:["Marché export","Domaine de Nizas","Mas Janeil"]
   },
   {
-    title:"Bio / biodynamie : argument à nuancer",
-    body:"Sur Campo Eliseo et Araucano, les commerciaux signalent que les labels bio/biodynamie ne sont pas toujours un levier de vente ; certains marchés restent plus sensibles au prix qu'à la certification.",
+    title:"Manque de notoriété des appellations/régions",
+    count:8,
+    body:"Roussillon, Languedoc, vins espagnols/chiliens/argentins peu connus : un frein direct à la vente.",
+    tags:["Notoriété","Mas Janeil","Domaine de Nizas","Hacienda Araucano"]
+  },
+  {
+    title:"Manque de storytelling / outils d'aide à la vente",
+    count:7,
+    body:"Demande récurrente d'un support argumentaire (livret, key selling points).",
+    tags:["Storytelling","Mas Janeil","Domaine de Nizas"]
+  },
+  {
+    title:"Vins de niche réservés aux amateurs/sommeliers",
+    count:6,
+    body:"Excellents mais commercialement confidentiels (Gran Lurton Corte, C2, Alka…).",
+    tags:["Niche","Bodega Piedra Negra","Mas Janeil","Hacienda Araucano"]
+  },
+  {
+    title:"Cohérence de gamme",
+    count:5,
+    body:"Trop de références qui se chevauchent (surtout Campo Eliseo), à l'inverse saluée chez Piedra Negra.",
+    tags:["Portefeuille","Bodegas Campo Eliseo","Bodega Piedra Negra"]
+  },
+  {
+    title:"Bio/biodynamie, argument de vente faible",
+    count:5,
+    body:"Plusieurs marchés préfèrent payer moins cher pour du non-bio.",
     tags:["Positionnement","Bodegas Campo Eliseo","Hacienda Araucano"]
   },
   {
-    title:"Notoriété d'appellation limitée",
-    body:"Le potentiel de plusieurs gammes est freiné non par la qualité du vin, mais par la faible notoriété de l'appellation sur certains marchés (Roussillon, AOP Coteaux Varois), face à une concurrence internationale mieux identifiée par le client final.",
-    tags:["Notoriété","Mas Janeil","La Mule"]
-  },
-  {
-    title:"Besoin d'outils d'aide à la vente",
-    body:"Demande explicite pour un support synthétique par gamme (key selling points, présentation, benchmark) pour appuyer le discours commercial sur le terrain, en particulier pour les gammes moins connues.",
-    tags:["Outils commerciaux","Mas Janeil"]
+    title:"Profils trop tanniques",
+    count:3,
+    body:"Un repoussoir sur certains marchés (Europe centrale/de l'Est notamment).",
+    tags:["Positionnement","Hacienda Araucano","Bodega Piedra Negra"]
   }
 ];
 
 function renderThemes(){
-  document.getElementById('theme-grid').innerHTML = THEMES.map(t=>`
-    <div class="theme-card">
-      <h3>${t.title}</h3>
-      <p>${t.body}</p>
-      <div class="tags">${t.tags.map(tag=>`<span>${tag}</span>`).join('')}</div>
+  const maxCount = Math.max(...THEMES.map(t=>t.count));
+  document.getElementById('theme-grid').innerHTML = THEMES.map((t,i)=>`
+    <div class="theme-rank-row">
+      <div class="theme-rank-num">${String(i+1).padStart(2,'0')}</div>
+      <div class="theme-rank-main">
+        <div class="theme-rank-head">
+          <h3>${t.title}</h3>
+          <span class="theme-rank-count">${t.count} mention${t.count>1?'s':''}</span>
+        </div>
+        <div class="theme-rank-bar-track"><div class="theme-rank-bar-fill" style="width:${(t.count/maxCount*100).toFixed(0)}%"></div></div>
+        <p>${t.body}</p>
+        <div class="tags">${t.tags.map(tag=>`<span>${tag}</span>`).join('')}</div>
+      </div>
     </div>
   `).join('');
 }

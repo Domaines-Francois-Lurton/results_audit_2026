@@ -131,7 +131,7 @@ section{margin-bottom:52px;}
 }
 .section-head h2{
   display:flex;
-  align-items:baseline;
+  align-items:center;
   gap:10px;
   font-family:var(--font-display);
   font-weight:800;
@@ -141,13 +141,18 @@ section{margin-bottom:52px;}
   color:var(--cream);
 }
 .section-head .num-tag{
+  flex:0 0 auto;
+  display:flex; align-items:center; justify-content:center;
+  width:24px; height:24px;
+  border-radius:50%;
+  background:var(--garnet);
   font-family:var(--font-mono);
-  color:var(--garnet);
+  color:#fff;
   font-weight:800;
-  font-size:12px;
-  letter-spacing:.06em;
+  font-size:11px;
+  letter-spacing:.02em;
 }
-.section-note{color:var(--cream-dim); font-size:13.5px; max-width:560px;}
+.section-note{color:var(--cream-dim); font-size:13.5px;}
 
 .panel{
   background:var(--bg-panel);
@@ -285,31 +290,37 @@ tr:last-child td{border-bottom:none;}
   font-weight:700; font-size:11.5px;
 }
 
-/* ---------- Theme cards ---------- */
-.theme-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(280px,1fr));
+/* ---------- Theme ranking ---------- */
+.theme-rank-list{display:flex; flex-direction:column;}
+.theme-rank-row{
+  display:flex;
   gap:16px;
+  padding:18px 0;
+  border-bottom:1px solid var(--line);
 }
-.theme-card{
-  background:var(--bg-panel);
-  border:1px solid var(--line);
-  border-radius:var(--radius-md);
-  box-shadow:var(--shadow-sm);
-  padding:22px;
-  border-top:4px solid var(--garnet);
+.theme-rank-row:first-child{padding-top:2px;}
+.theme-rank-row:last-child{border-bottom:none; padding-bottom:2px;}
+.theme-rank-num{
+  flex:0 0 24px;
+  font-family:var(--font-mono); font-weight:800; font-size:13px; color:var(--garnet);
 }
-.theme-card h3{
-  font-family:var(--font-display); font-weight:800; font-size:16.5px; letter-spacing:-.01em; margin:0 0 4px; color:var(--cream);
-  display:flex; align-items:center; gap:8px;
+.theme-rank-main{flex:1; min-width:0;}
+.theme-rank-head{
+  display:flex; align-items:baseline; justify-content:space-between; gap:12px; flex-wrap:wrap;
 }
-.theme-card .count{
-  font-family:var(--font-mono); font-size:10px; color:var(--cream-dim);
-  background:var(--bg-panel-2); border:1px solid var(--line); padding:2px 7px; border-radius:999px;
+.theme-rank-head h3{
+  font-family:var(--font-display); font-weight:800; font-size:15.5px; letter-spacing:-.01em; margin:0; color:var(--cream);
 }
-.theme-card p{font-size:13.5px; color:var(--cream-dim); margin:10px 0 14px;}
-.theme-card .tags{display:flex; flex-wrap:wrap; gap:6px;}
-.theme-card .tags span{
+.theme-rank-count{
+  font-family:var(--font-mono); font-weight:700; font-size:12px; color:var(--garnet); white-space:nowrap;
+}
+.theme-rank-bar-track{
+  height:7px; border-radius:999px; background:var(--bg-panel-2); margin:9px 0 12px; overflow:hidden;
+}
+.theme-rank-bar-fill{height:100%; border-radius:999px; background:var(--garnet);}
+.theme-rank-row p{font-size:13.5px; color:var(--cream-dim); margin:0 0 10px;}
+.theme-rank-row .tags{display:flex; flex-wrap:wrap; gap:6px;}
+.theme-rank-row .tags span{
   font-size:10.5px; font-weight:600; background:var(--bg-panel-2); border:1px solid var(--line);
   padding:3px 10px; border-radius:999px; color:var(--gold-soft);
 }
@@ -317,7 +328,7 @@ tr:last-child td{border-bottom:none;}
 /* ---------- Commercial comparison ---------- */
 .comm-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px;}
 .comm-card{background:var(--bg-panel); border:1px solid var(--line); box-shadow:var(--shadow-sm); border-radius:var(--radius-md); padding:16px;}
-.comm-card .name{font-weight:800; font-size:13.5px; color:var(--cream); margin-bottom:10px;}
+.comm-card .name{font-weight:800; font-size:12px; color:var(--cream); margin-bottom:10px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
 .comm-card .row{display:flex; justify-content:space-between; font-size:11.5px; color:var(--cream-dim); padding:3px 0;}
 .comm-card .row b{color:var(--cream); font-family:var(--font-mono); font-variant-numeric:tabular-nums; font-weight:700;}
 
@@ -433,7 +444,6 @@ footer{
   .gamme-row .bar-track{grid-area:bar;}
   .gamme-row .score{grid-area:score;}
 
-  .theme-grid{grid-template-columns:1fr;}
   .comm-grid{grid-template-columns:repeat(2,1fr);}
 
   .radar-modal{padding:12px;}
